@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>How-To SWAPI</title>
+		<!--Using Bootstrap for CSS-->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	</head>
+
+	<body>
+		<!--navagation bar -->
+		<nav class="navbar navbar-default" id="navbar"> 
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="icon-bar"></span> <!--creates icon bars in collapsed button-->
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<!--Header buttons in NavBar-->	
+					<a href="index_main.html" class="btn btn-default navbar-btn">How To</a>
+					<a href="index_features.html" class="btn btn-default navbar-btn">Features</a>
+					<a href="index_integration.html" class="btn btn-default navbar-btn">Integration</a>
+					<!--<a href="index_caution.html" class="btn btn-default navbar-btn">Caution</a>-->
+					<a href="https://swapi.co/" class="btn btn-info navbar-btn navbar-right">SWAPI</a>
+				</div>
+			</div>
+		</nav>  <!--END NAVBAR-->
+
+		<div class="jumbotron">
+			<div class="container text-center">
+				<h1>Integration</h1>
+				<h2></h2>
+				<p>This section will give you an indepth review using SWAPI.</p>
+				<p>Below are the important steps of integrating calls to SWAPI into a website.</p>
+				<!--<p>"Great kid, don't get cocky." - Han Solo<p>-->
+			</div>
+		</div><!--end the intro header-->
+
+		<!--Planet Select and Display Div-->
+		<div class="container">
+			<section>
+				<div class="row">
+					<div class="col-lg-7">
+						<blockquote>
+							<h3>AJAX calls</h3>
+							<p>Asynchronous JavaScript and XML (AJAX) calls are a useful way to make GET requests to
+							SWAPI. The steps can be simplified into four primary steps: </p>
+								<ul>
+									<li>Processing a form submission
+									<li>Concatenating the data to the API URL
+									<li>Parsing	the returned information
+									<li>Amending the parsed data to the DOM
+								</ul>
+							<p>The planet selection is a demonstration of using an AJAX call to display data from SWAPI. The selection
+							from the drop down menu will return the data associated with that planet. Only the most well knock
+							planets are included.
+							</p>
+						</blockquote>
+					</div>
+					<div class="col-lg-5">
+						<blockquote>
+							<h3>Star Wars Planets</h3>
+							<p>Select the planet you want info on from the drop down list.</p>
+							<form>
+								<fieldset>
+								<!--<legend>Planets Selection</legend>
+									<p>Select the planet from the drop down list.</p>-->
+									<label for="planet"> </label>
+									<select id="places"><!--option id ties to JS DOM call--> 
+									<option value= 2>Alderaan</option>  <!--Each option value is associated with a Star Wars Character-->
+									<option value= 1>Tatooine</option>
+									<option value= 4>Hoth</option>
+									<option value= 5>Dagobah</option>
+									<option value= 7>Endor</option>
+									<option value= 8>Naboo</option>
+									<option value= 9>Coruscant</option>
+									<option value= 10>Kamino</option>
+									</select>
+									<input type="submit" id="planetSubmit">
+								</fieldset>
+							</form>
+							<ul>
+								<li><span>Planet Name: </span><span id="pname"></span></li>
+								<li><span>Rotational Period: </span><span id="rotate"></span></li>
+								<li><span>Orbital Period: </span><span id="orbital"></span></li>
+								<li><span>Population: </span><span id="diameter"></span></li>
+								<li><span>Climate: </span><span id="climate"></span></li>
+								<li><span>Population: </span><span id="population"></span></li>
+							</ul>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+		</div>
+				
+	<div class="container">
+		<section>
+			<div class="row">
+				<div class="col-lg-12">
+					<blockquote>
+						<h3>The JavaScript AJAX call</h3>
+						<p>Here is the code which this page is using to request, recieve, and display the planet data from SWAPI. 
+	
+						</p>
+					</blockquote>
+				</div>
+			</div>
+		</section>
+	</div>	
+
+				
+		<div class="container">
+			<section>
+				<div class="row">
+					<!--<div class="col-lg-5">
+						<blockquote>
+							<strong>Asynchronous Calls</strong>
+							<p>To utilize SWAPI, asynchronous calls to the server will allow you to perform a GET request.
+							The JavaScript code to the right interacts with 
+							<br><br>
+							
+							<br><br>
+							
+							</p>
+						</blockquote>
+					</div>-->
+					<div class="col-lg-10">
+						<pre>
+							<code>
+document.addEventListener("DOMContentLoaded", getPlanet);
+
+function getPlanet(){
+	document.getElementById('planetSubmit').addEventListener('click', function(event){
+		var req = new XMLHttpRequest();
+		var where = {who:null};
+		where.who = document.getElementById('places').value;
+		req.open('GET', 'http://swapi.co/api/planets/' + where.who + '/', true);
+		req.addEventListener('load', function(){
+			if(req.status >= 200 && req.status < 400){
+				var response = JSON.parse(req.responseText);
+				document.getElementById('pname').textContent = response.name;
+				document.getElementById('rotate').textContent = response.rotation_period;
+				document.getElementById('orbital').textContent = response.orbital_period;
+				document.getElementById('diameter').textContent = response.diameter;
+				document.getElementById('climate').textContent = response.climate;
+				document.getElementById('population').textContent = response.population;
+			}else{
+				console.log("What did you do? Something went wrong! The status is: " + req.status.Text);
+			}
+		});
+		req.send(null);
+		event.preventDefault();
+	});
+};	
+							</code>
+						</pre>
+					</div>	
+				</div>
+			</section>
+		</div>
+
+	<div class="container">
+		<section>
+			<div class="row">
+				<div class="col-lg-12">
+					<blockquote>
+						<h3>What is going on?</h3>
+						<p>Let's start by reviewing the DOM (document object model), and accessing the html components through it.</p>
+						<br>
+						<p>The DOM is an interface to interact with HTML documents. By using the "document" with the dot operate, you can access specific attributes of the document
+						and call methods to append, change, listen, and do lots of really nifty stuff. To learn more about how the DOM, click <a href = "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction">here</a>. The DOM is what allows dynamic interaction on websites with JavaScript.
+						The first line of code in the script is:</p>
+						<pre>
+							<code>
+document.addEventListener("DOMContentLoaded", getPlanet);</code>
+						</pre>
+						<p>This line is an Event Listener, which takes two arguments. The first is the "DOMContentLoaded", which as you may expect is an event that 
+						occurs when the HTML (DOM content) is loaded. The second argument is "getPlanet", which is the function that performs the action. In this case
+						the action occurs when the submit button is pressed after a planet selection has been made from the drop down box.
+						</p>
+						<br>
+						<p>The next lines of code are the beginning of the function which performs the action itself.</p>
+						<pre>
+							<code>
+function getPlanet(){
+	document.getElementById('planetSubmit').addEventListener('click', function(event){</code>
+						</pre>
+						<p>
+						The function definition should be self explanatory. The "getElementById" function is what identifies the submission button as the object which will
+						receive interaction. The action is defined with the dot "addEventListener", which receives the function that performs the intended action. The following
+						function declaration is what performs the GET request to SWAPI and appends the received data to the DOM if the request is fulfilled appropriately.
+						</p>
+						<br>
+						<p>The next statement is beginning of the AJAX call. Declaring a variable as a "new XMLHttpRequest" makes that variable the function of the AJAX call.
+						The declaration is this line in the our function.
+						</p>
+						<pre>
+							<code> 
+var req = new XMLHttpRequest();</code>
+						</pre>
+						<p>After this line of code "req" represents the object which is the function that will perform the request. This allows us to use the methods associated
+						an AJAX call, such as ".open" and ".send". It also allows us to add event listeners, check the status of the request, and receive responses from the call.</p>
+						<br>
+						<p>The next two lines of code following the AJAX definition are where we create a variable to recieve the user input. This information is then concatenated
+						with the API URL in the req.open call to SWAPI. To define the variable which needs to be added, the function receives a value (in this case an integer which represents
+						the planet id) from the event listener when a click triggers the submit.
+						</p>
+						<br>
+						<pre>
+							<code> 
+var where = {who:null};
+where.who = document.getElementById('places').value;</code>
+						</pre>
+						<p>The submit button assigned the value to the HTML id "places". These two lines of code define a new variable, assigns the value null to it, then reassigns the value
+						submitted by the user to the variable. This is the value which we use in the request to identify what data needs to be retrieved.</p>
+						<br>
+						<p>The next line is our request to SWAPI. It is here.
+						<pre>
+							<code> 
+req.open('GET', 'http://swapi.co/api/planets/' + where.who + '/', true);</code>
+						</pre>
+						<p>This line is where the XMLHttpRequest variable uses the .open method. We define the call as a GET request first. All SWAPI calls are GET requests, as you cannot
+						post data to an API. The second argument in the request is the API itself. It is the URL which we are requesting to send us data via the GET protocol. In this argument
+						we concatenated the value passed to the function by the user via submit with a "+". In this case we defined the variable as "where" and gave it an attribute called "who", which 
+						contains the planet id. Lastly, we pass a third argument to req.open, which is a bool variable. In this case it is "true", because the function is going to perform an
+						asynchronous request. If you want the request to not be a asynchronous, you would set this argument to false, but that is not good practice as it can lower the quality
+						of the user experience. You should always use an asynchronous request, unless you have a good reason to make the rendering of the browser wait for the data to return.</p>
+						<br>
+						<p>The lines of code following the GET request call determines the appropriate action based on the response status. If the status is 200 to 399 then the response was okay
+						and there is data which was returned. If the status is over 400 then something went wrong.
+						</p>
+						<pre>
+							<code>
+req.addEventListener('load', function(){
+			if(req.status >= 200 && req.status < 400){
+				var response = JSON.parse(req.responseText);
+				document.getElementById('pname').textContent = response.name;
+				document.getElementById('rotate').textContent = response.rotation_period;
+				document.getElementById('orbital').textContent = response.orbital_period;
+				document.getElementById('diameter').textContent = response.diameter;
+				document.getElementById('climate').textContent = response.climate;
+				document.getElementById('population').textContent = response.population;
+			}else{
+				console.log("What did you do? Something went wrong! The status is: " + req.status.Text);
+			}
+		});</code>
+						</pre>
+						<p>If the response status was okay, then the code parses the response data. The data is now parsed into properties of the variable which was defined as "response".
+						This is where it is important to know the features of the primary attribute being requested. For planets, the returned data which we are are interested in displaying are
+						the name, rotation period, orbital period, diameter, climate, and population. This section of code uses the DOM to change the text content of the HTML property ids to the
+						returned information.</p>
+						<br>
+						<p>The last two lines of code actually send the request and then prevents the default action of a page reload.</p> 
+						<br>
+						<p>Those are the steps of integrating SWAPI asynchronous GET requests into a website.</p>
+					</blockquote>
+				</div>
+			</div>
+		</section>
+	</div><!--End of the primary content for the page -->
+	
+<!--closing and one more example-->
+	<div class="container">
+			<section>
+				<div class="row">
+					<div class="col-lg-7">
+						<blockquote>
+							<h3>Summation</h3>
+							<p>Integrating SWAPI into a fan site is a fantastic way to add interaction for a user. It can seem a bit daunting at first, but with this walkthrough
+							and a strong connection to the force, you can make it happen.</p>
+							<br>
+							<p>Here is one more example, where instead of planet information, main characters are listed. The mechanics are the same, just the datafields accessed
+							in the response are different. </p>
+							<br>
+							<p>May the Force be with you.</p>
+						</blockquote>
+					</div>
+					<div class="col-lg-5">
+						<blockquote>
+							  <form>
+								<fieldset>
+									<h3>Star Wars Planets</h3>
+									<p>Select the planet you want info on from the drop down list.</p>
+									<label for="person"> </label>
+									<select id="them"><!--option id ties to JS DOM call--> 
+										<option value= 1>Luke Skywalker</option>  <!--Each option value is associated with a Star Wars Character-->
+										<option value= 2>C-3PO</option>
+										<option value= 3>R2-D2</option>
+										<option value= 4>Darth Vader</option>
+										<option value= 5>Leia Organa</option>
+										<option value= 10>Obi-Wan Kenobi</option>
+										<option value= 13>Chewbacca</option>
+										<option value= 14>Han Solo</option>
+									</select>
+									<input type="submit" id="characterSubmit">
+								</fieldset>
+							  </form>
+							 <div>
+								<ul>
+									<li><span>Character Name: </span><span id="name"></span></li>
+									<li><span>Height: </span><span id="height"></span></li>
+									<li><span>Weight: </span><span id="mass"></span></li>
+									<li><span>Hair Color: </span><span id="hair"></span></li>
+									<li><span>Gender: </span><span id="gender"></span></li>
+								</ul>
+							 </div>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+		</div>
+	
+	<!--Footer-->
+	<footer class="bs-docs-footer-inverse">
+		<div class="container text-center">
+			<p>Created By: Ian Buchanan</p>
+			<p>Student at Oregon State University</p>
+		</div>
+	</footer> <!--end footer-->
+
+		<script src="swapiJSexample.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>How-To SWAPI</title>
+		<!--Using Bootstrap for CSS-->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	</head>
+
+	<body>
+		<!--navagation bar -->
+		<nav class="navbar navbar-default" id="navbar"> 
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="icon-bar"></span> <!--creates icon bars in collapsed button-->
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<!--Header buttons in NavBar-->	
+					<a href="index_main.html" class="btn btn-default navbar-btn">How To</a>
+					<a href="index_features.html" class="btn btn-default navbar-btn">Features</a>
+					<a href="index_integration.html" class="btn btn-default navbar-btn">Integration</a>
+					<!--<a href="index_caution.html" class="btn btn-default navbar-btn">Caution</a>-->
+					<a href="https://swapi.co/" class="btn btn-info navbar-btn navbar-right">SWAPI</a>
+				</div>
+			</div>
+		</nav>  <!--END NAVBAR-->
+		
+				
+		<div class="jumbotron"><!--Begin Jumbotron page header-->
+			<div class="container text-center">
+				<h1>Features of SWAPI</h1>
+				<h2></h2>
+				<p>Below is a breakdown of the primary features of the Star Wars API.</p>
+				<!--<p>"Prepare to make the jump to lightspeed." - Han Solo</p>-->
+			</div>
+		</div><!--end the intro Jumbotron header-->
+
+		<div class="container">
+			<div>
+				<section>
+					<div class="row">
+						<div class="col-lg-12">
+							<blockquote>
+								<strong>Primary Attributes</strong>
+								<p>The six primary attributes of the API all have unique informaiton specific to that attribute. This information is returned in JSON format by default.
+								Each attribute has four primary pieces of data and are built in the structure of a linked list. The four components within the primary attributes are
+								"count", "next", "previous", and "results". All calls to the API are GET requests. A GET request allows the client (the browser) to 'ask' that data
+								be returned to the browser to be displayed. The primary attributes are utilized in the request to determine if people, planets, starships, species, vehicles, or 
+								films need to be returned to the user.
+								</p><!--<br>
+								<br>
+								<strong>The root URL</strong>
+								</p>To access the data in SWAPI, you must use the 'root' URL. To access the data -->
+								<h4>Root URL</h4>
+								<pre>
+								<code>
+http://swapi.co/api/people/</code>
+								</pre>
+								<h4>Result</h4>
+								<pre>
+								<code>
+HTTP 200 OK
+Vary: Accept
+Allow: GET, HEAD, OPTIONS
+Content-Type: application/json
+
+{
+    "count": 87, 
+    "next": "http://swapi.co/api/people/?page=2", 
+    "previous": null, 
+    "results": [
+        {
+            "name": "Luke Skywalker", 
+            "height": "172", 
+            "mass": "77", 
+            "hair_color": "blond", 
+            "skin_color": "fair", 
+            "eye_color": "blue", 
+            "birth_year": "19BBY", 
+            "gender": "male", 
+            "homeworld": "http://swapi.co/api/planets/1/", 
+            "films": [
+                "http://swapi.co/api/films/6/", 
+                "http://swapi.co/api/films/3/", 
+                "http://swapi.co/api/films/2/", 
+                "http://swapi.co/api/films/1/", 
+                "http://swapi.co/api/films/7/"
+            ], 
+            "species": [
+                "http://swapi.co/api/species/1/"
+            ], </code>
+								</pre>
+							</blockquote>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div><!--end first section-->
+		<div class="container">
+			<section>
+				<div class="row">
+					<div class="col-lg-6">
+						<blockquote>
+							<strong>Count</strong>
+							<br>
+							<p>"Count" contains the number of data objects held by the attribute. For example, when accessing the base URL for the people attribute, as shown above.
+							The count represents the number of characters from the Star Wars canon which have accessible date. This is an important component, as each character within
+							the people attribute has a unique id. It is this id which is utilized to access the characters specific data. The beginning results for the first character
+							in the people attribute is included above. This demonstartes the JSON data structure, but more on that later.
+							</p>
+						</blockquote>
+					</div>
+					<div class="col-lg-6">
+						<blockquote>
+							<strong>Next and Previous</strong>
+							<br>
+							<p>The "next" and "previous" components are part of a traditional in a linked list structure. As the names may suggest, these point to the next and previous objects in the
+							data structure. The first object will have null for it's "previous" attribute and the last object will have null assigned to "next". This could be an
+							important attribute if designing an application which moved through the data structure from one component to the next. However, the focus of implementing an
+							interaction with this API through an application will be on calling individual object ids.
+							</p>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+		</div>		
+		<div class="container">
+			<section>
+				<div class="row">
+					<div class="col-lg-7">
+						<blockquote>
+							<strong>Results</strong>
+							<p>The "results" are the individual pieces of information about something in the Star Wars galaxy. This is the information we are really after. In the example
+							above you can see the results for the first character(...people/1) in the people attribute. Results will vary for each primary attribute (planets dont have hair
+							and people don't have obital periods around a star). This is an obvious but important distinction, because if you want to display the results of a search or query
+							you will need to parse the data appropriately. To do this, you will need to know what data you will receive when doing an API query for people versus a starship.
+							<br><br>
+							The result for the starship with the id of '10' (http://swapi.co/api/starships/10/) is the object to the right in JSON notation. The result is the ship that infamously 
+							made the Kessel run in 12 parsecs. While that detail is not included in our results, there is other information related to the starship which may be useful!.
+							This data can be parsed and displayed to a user.
+							<br><br>
+							JSON notation is a standardized structure. The "title" : "description" attributes always give you the data in a structure which can be accessed, utilized, and displayed.
+							SWAPI uses GET requests through URLs to return information in the application/json format by default.
+							</p>
+						</blockquote>
+					</div>
+					<div class="col-lg-5">
+						<pre>
+							<code>
+{
+    "name": "Millennium Falcon", 
+    "model": "YT-1300 light freighter", 
+    "manufacturer": "Corellian Engineering Corporation", 
+    "cost_in_credits": "100000", 
+    "length": "34.37", 
+    "max_atmosphering_speed": "1050", 
+    "crew": "4", 
+    "passengers": "6", 
+    "cargo_capacity": "100000", 
+    "consumables": "2 months", 
+    "hyperdrive_rating": "0.5", 
+    "MGLT": "75", 
+    "starship_class": "Light freighter", 
+    "pilots": [
+        "http://swapi.co/api/people/13/", 
+        "http://swapi.co/api/people/14/", 
+        "http://swapi.co/api/people/25/", 
+        "http://swapi.co/api/people/31/"
+    ], 
+    "films": [
+        "http://swapi.co/api/films/7/", 
+        "http://swapi.co/api/films/3/", 
+        "http://swapi.co/api/films/2/", 
+        "http://swapi.co/api/films/1/"
+    ], 
+    "created": "2014-12-10T16:59:45.094000Z", 
+    "edited": "2014-12-22T17:35:44.464156Z", 
+    "url": "http://swapi.co/api/starships/10/"
+}
+							</code>
+						</pre>
+					</div>	
+				</div>
+			</section>
+		</div>
+		
+	<!--Footer-->
+	<footer class="bs-docs-footer-inverse">
+		<div class="container text-center">
+			<p>Created By: Ian Buchanan</p>
+			<p>Student at Oregon State University</p>
+		</div>
+	</footer> <!--end footer-->
+			
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</body>
+</html>
