@@ -10,7 +10,7 @@ AJAX call to the Star Wars API (SWAPI)
 			var req = new XMLHttpRequest();
 			var whose = {who:null};
 			whose.who = document.getElementById('them').value;//call helper function to get the character's id.
-			req.open('GET', 'http://swapi.co/api/people/' + whose.who + '/', true);
+			req.open('GET', 'https://swapi.co/api/people/' + whose.who + '/', true);
 			req.addEventListener('load', function(){
 				if(req.status >= 200 && req.status < 400){
 					var response = JSON.parse(req.responseText);
@@ -35,7 +35,7 @@ AJAX call to the Star Wars API (SWAPI)
 			var req = new XMLHttpRequest();
 			var where = {who:null};
 			where.who = document.getElementById('places').value;//call helper function to get the character's id.
-			req.open('GET', 'http://swapi.co/api/planets/' + where.who + '/', true);
+			req.open('GET', 'https://swapi.co/api/planets/' + where.who + '/', true);
 			req.addEventListener('load', function(){
 				if(req.status >= 200 && req.status < 400){
 					var response = JSON.parse(req.responseText);
